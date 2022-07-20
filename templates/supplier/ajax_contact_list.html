@@ -1,0 +1,87 @@
+{% load i18n %}
+{% load staticfiles %}
+<div class="card">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                    	<th width="3%" class="text-center">
+                    		<input type="checkbox" class="check" id="chk_all">
+                    	</th>
+                    	<th width="8%">{% blocktrans %}Picture{% endblocktrans %}</th>
+                        <th width="14%">{% blocktrans %}Name{% endblocktrans %}</th>
+                        <th width="14%">{% blocktrans %}NIF{% endblocktrans %}</th>
+                        <th width="16%">{% blocktrans %}Email{% endblocktrans %}</th>
+                        <th width="12%">{% blocktrans %}Telephone{% endblocktrans %}</th>
+                        <th width="12%">{% blocktrans %}Country{% endblocktrans %}</th>
+                        <th width="25%">{% blocktrans %}Product{% endblocktrans %}</th>
+                        <th width="20%">{% blocktrans %}Owner{% endblocktrans %}</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                	{% for contact in contacts %}
+                		<tr>
+                			<td class="text-center">
+                				<input type="checkbox" class="check chk_sub" data-id="{{ contact.id }}">
+                			</td>
+                            <td class="text-center p-2">
+                            	{% if contact.picture %}
+		                            <img src="{{contact.picture.url}}" alt="" style="max-width: 85px;max-height: 85px;"/>
+  		                        {% else %}
+                                {% if contact.parent %}
+                                  <i class="fas fa-3x fa-user" ></i>
+                                {% else %}
+  		                            <i class="fas fa-3x fa-industry" ></i>
+                                {% endif %}
+  		                        {% endif %}
+                            </td>
+                            <td>{{ contact.name }}{% if contact.parent %}&nbsp;&nbsp;({{ contact.parent.name }}){% endif %}</td>
+                            <td>{{ contact.nif|default_if_none:"" }}</td>
+                            <td>{{ contact.email|default_if_none:"" }}</td>
+                            <td>{{ contact.telephone|default_if_none:"" }}</td>
+                            <td>{% if LANGUAGE_CODE == 'en' %}{{ contact.country.name }}{% else %}{{ contact.country.alternate_names }}{% endif %}</td>
+                            <td>{{ contact.products }}</td>
+                            <td>{% if contact.user.first_name %}{{ contact.user.first_name}} {{ contact.user.last_name }}{% else %}{{ contact.user.username }}{% endif %}</td>
+                            <td class="text-center">
+                            	<a href="{% url 'detail-supplier' contact.id %}"><span class="ml-2 mr-2 btn_edit" data-id="2"><i class="fas fa-edit"></i></span></a>
+                            </td>
+                        </tr>
+                	{% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% if paginator.num_pages > 1 %}
+      {% include 'widgets/pagination.html' %}
+      <script type="text/javascript">
+        $(".page_link").on('click', function(){
+          $.ajax({
+            headers: { "X-CSRFToken": '{{csrf_token}}' },
+            url: '{% url "ajax-list-contacts" %}',
+            data: {
+              'search_key': $("#search_box").val(),
+              'page': $(this).data('id'),
+              'selected_country': $("#sel_country").val().join(),
+              'selected_owner': $("#sel_owner").val().join(),
+            },
+            type: 'POST',
+            success: function (data) {
+              $("#div_content").html(data);
+            }
+          });
+        });
+      </script>
+    {% endif %}
+    
+</div>
+<script src="{% static 'plugins/icheck/icheck.init.js' %}"></script>
+<script type="text/javascript">
+	$("#chk_all").on('ifChecked', function(){
+		$('.chk_sub').iCheck('check');
+	});
+	$("#chk_all").on('ifUnchecked', function(){
+		$('.chk_sub').iCheck('uncheck');
+	});
+</script>

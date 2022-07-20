@@ -1,0 +1,287 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load i18n %}
+{% load mathfilters %}
+{% block content %}
+<link href="{% static 'css/app.css' %}" rel="stylesheet">
+<style type="text/css">
+	.card{
+        /*height: 150px;*/
+        /*border: 1px solid !important;*/
+        -webkit-box-shadow: 1px 0px 20px rgba(0, 0, 0, 0.18);
+        box-shadow: 1px 0px 20px rgba(0, 0, 0, 0.18);
+    }
+    h4{
+    	margin-bottom: 0px;
+    }
+    h1{
+    	margin-bottom: 0px;
+    }
+</style>
+<div class="container-fluid">
+	<div class="block-header row m-0">
+		<div class="col-12 col-md-7 mr-auto">
+			<h2 class="mr-auto">{% blocktrans %}Dashboard{% endblocktrans %}</h2>
+		</div>
+		<div class="col-12 col-md-5">
+			
+		</div>
+	</div>
+	<div class="row clearfix mt-2">
+		<div class="col-lg-2 col-md-3 col-sm-12 col-xs-12">
+			<a href="{% url 'suppliers' %}">
+				<div class="card">
+					<div class="card-body">
+						<div class="row">
+							<div class="col-5 text-center">
+								<i class="fas fa-4x fa-address-book"></i>
+							</div>
+							<div class="col-7 text-center">
+								<h1 class="font-light">{{ supplier }}</h1>
+	                            <h4 class="text-muted">{% blocktrans %}Suppliers{% endblocktrans %}</h4>
+							</div>
+						</div>
+					</div>
+				</div>
+			</a>
+		</div>
+		<div class="col-lg-2 col-md-3 col-sm-12 col-xs-12">
+			<a href="{% url 'leads' %}">
+				<div class="card">
+					<div class="card-body">
+						<div class="row">
+							<div class="col-5 text-center">
+								<i class="far fa-4x fa-address-book"></i>
+							</div>
+							<div class="col-7 text-center">
+								<h1 class="font-light">{{ lead }}</h1>
+	                            <h4 class="text-muted">{% blocktrans %}Leads{% endblocktrans %}</h4>
+							</div>
+						</div>
+					</div>
+				</div>
+			</a>
+		</div>
+		<div class="col-lg-2 col-md-3 col-sm-12 col-xs-12">
+			<a href="{% url 'stocks' %}">
+				<div class="card">
+					<div class="card-body">
+						<div class="row">
+							<div class="col-5 text-center">
+								<i class="fas fa-4x fa-cube"></i>
+							</div>
+							<div class="col-7 text-center">
+								<h1 class="font-light">{{ stock }}</h1>
+	                            <h4 class="text-muted">{% blocktrans %}Stocks{% endblocktrans %}</h4>
+							</div>
+						</div>
+					</div>
+				</div>
+			</a>
+		</div>
+		<div class="col-lg-2 col-md-3 col-sm-12 col-xs-12">
+			<a href="{% url 'groups' %}">
+				<div class="card">
+					<div class="card-body">
+						<div class="row">
+							<div class="col-5 text-center">
+								<i class="fas fa-4x fa-cubes"></i>
+							</div>
+							<div class="col-7 text-center">
+								<h1 class="font-light">{{ group }}</h1>
+	                            <h4 class="text-muted">{% blocktrans %}Groups{% endblocktrans %}</h4>
+							</div>
+						</div>
+					</div>
+				</div>
+			</a>
+		</div>
+		<div class="col-lg-2 col-md-3 col-sm-12 col-xs-12">
+			<a href="{% url 'commands' %}">
+				<div class="card">
+					<div class="card-body">
+						<div class="row">
+							<div class="col-5 text-center">
+								<i class="fas fa-4x fa-wrench"></i>
+							</div>
+							<div class="col-7 text-center">
+								<h1 class="font-light">{{ command }}</h1>
+	                            <h4 class="text-muted">{% blocktrans %}Command{% endblocktrans %}</h4>
+							</div>
+						</div>
+					</div>
+				</div>
+			</a>
+		</div>
+		<div class="col-lg-2 col-md-3 col-sm-12 col-xs-12">
+			<a href="{% url 'outcomes' %}">
+				<div class="card">
+					<div class="card-body">
+						<div class="row">
+							<div class="col-5 text-center">
+								<i class="fas fa-4x fa-sitemap"></i>
+							</div>
+							<div class="col-7 text-center">
+								<h1 class="font-light">{{ outcome }}</h1>
+	                            <h4 class="text-muted">{% blocktrans %}Orders{% endblocktrans %}</h4>
+							</div>
+						</div>
+					</div>
+				</div>
+			</a>
+		</div>
+		<div class="col-lg-2 col-md-3 col-sm-12 col-xs-12">
+			<a href="{% url 'purchases' %}">
+				<div class="card">
+					<div class="card-body">
+						<div class="row">
+							<div class="col-5 text-center">
+								<i class="fas fa-4x fa-dollar-sign"></i>
+							</div>
+							<div class="col-7 text-center">
+								<h1 class="font-light">{{ purchase }}</h1>
+	                            <h4 class="text-muted">{% blocktrans %}Purchase{% endblocktrans %}</h4>
+							</div>
+						</div>
+					</div>
+				</div>
+			</a>
+		</div>
+		<div class="col-lg-2 col-md-3 col-sm-12 col-xs-12">
+			<a href="{% url 'transports' %}">
+				<div class="card">
+					<div class="card-body">
+						<div class="row">
+							<div class="col-5 text-center">
+								<i class="fas fa-4x fa-truck"></i>
+							</div>
+							<div class="col-7 text-center">
+								<h1 class="font-light">{{ transport }}</h1>
+	                            <h4 class="text-muted">{% blocktrans %}Transport{% endblocktrans %}</h4>
+							</div>
+						</div>
+					</div>
+				</div>
+			</a>
+		</div>
+		<div class="col-lg-2 col-md-3 col-sm-12 col-xs-12">
+			<a href="{% url 'category' %}">
+				<div class="card">
+					<div class="card-body">
+						<div class="row">
+							<div class="col-5 text-center">
+								<i class="fas fa-4x fa-layer-group"></i>
+							</div>
+							<div class="col-7 text-center">
+								<h1 class="font-light">{{ category }}</h1>
+	                            <h4 class="text-muted">{% blocktrans %}Category{% endblocktrans %}</h4>
+							</div>
+						</div>
+					</div>
+				</div>
+			</a>
+		</div>
+		<div class="col-lg-2 col-md-3 col-sm-12 col-xs-12">
+			<a href="{% url 'jobs' %}">
+				<div class="card">
+					<div class="card-body">
+						<div class="row">
+							<div class="col-4 text-center">
+								<i class="fas fa-4x fa-male"></i>
+							</div>
+							<div class="col-8 text-center p-0">
+								<h2 class="font-light">{{ job }} / {{ candidate }}</h2>
+	                            <h4 class="text-muted">{% blocktrans %}Job Offer{% endblocktrans %}</h4>
+							</div>
+						</div>
+					</div>
+				</div>
+			</a>
+		</div>
+	</div>
+	<div class="row clearfix mt-2">
+		<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+			<div class="card">
+				<div class="card-body">
+					<h2 class="mb-0">{% blocktrans %}Minium Stocks{% endblocktrans %}</h2>
+					<div class="table-responsive">
+			            <table class="table table-bordered table-striped">
+			                <thead>
+			                    <tr>
+			                    	<th width="10%">{% blocktrans %}Picture{% endblocktrans %}</th>
+			                        <th width="18%">{% blocktrans %}Ref{% endblocktrans %}</th>
+			                        <th width="22%">{% blocktrans %}Name{% endblocktrans %}</th>
+			                        <th width="25%">{% blocktrans %}Quantity{% endblocktrans %}</th>
+			                        <th width="25%">{% blocktrans %}Category{% endblocktrans %}</th>
+			                    </tr>
+			                </thead>
+			                <tbody>
+			                	{% for stock in stocks %}
+			                		<tr>
+			                			<td class="text-center p-2">
+			                            	{% if stock.picture %}
+					                            <img src="{{stock.picture.url}}" alt="" style="max-width: 85px;max-height: 85px;"/>
+					                        {% else %}
+					                            <i class="far fa-4x fa-image pl-1 pr-1" ></i>
+					                        {% endif %}
+			                            </td>
+			                            <td>{{ stock.reference }}</td>
+			                            <td>{{ stock.name }}</td>
+			                            {% if stock.quantity < stock.minium %}
+			                              <td style="color:red">{{ stock.quantity }} pcs <span class="ml-2" style="font-size: 80%;color:black;">( {{ stock.quantity|sub:stock.minium }} pcs )</span></td>
+			                            {% else %}
+			                              <td>{{ stock.quantity }} pcs</td>
+			                            {% endif %}
+			                            <td>{{ stock.category.name }}</td>
+			                        </tr>
+			                	{% endfor %}
+			                </tbody>
+			            </table>
+			        </div>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+			<div class="card">
+				<div class="card-body">
+					<h2 class="mb-0">{% blocktrans %}Minium Groups{% endblocktrans %}</h2>
+					<div class="table-responsive">
+			            <table class="table table-bordered table-striped">
+			                <thead>
+			                    <tr>
+			                    	<th width="10%">{% blocktrans %}Picture{% endblocktrans %}</th>
+			                        <th width="18%">{% blocktrans %}Ref{% endblocktrans %}</th>
+			                        <th width="22%">{% blocktrans %}Name{% endblocktrans %}</th>
+			                        <th width="25%">{% blocktrans %}Quantity{% endblocktrans %}</th>
+			                        <th width="25%">{% blocktrans %}Category{% endblocktrans %}</th>
+			                    </tr>
+			                </thead>
+			                <tbody>
+			                	{% for stock in groups %}
+			                		<tr>
+			                			<td class="text-center p-2">
+			                            	{% if stock.picture %}
+					                            <img src="{{stock.picture.url}}" alt="" style="max-width: 85px;max-height: 85px;"/>
+					                        {% else %}
+					                            <i class="far fa-4x fa-image pl-1 pr-1" ></i>
+					                        {% endif %}
+			                            </td>
+			                            <td>{{ stock.reference }}</td>
+			                            <td>{{ stock.name }}</td>
+			                            {% if stock.quantity < stock.minium %}
+			                              <td style="color:red">{{ stock.quantity }} pcs <span class="ml-2" style="font-size: 80%;color:black;">( {{ stock.quantity|sub:stock.minium }} pcs )</span></td>
+			                            {% else %}
+			                              <td>{{ stock.quantity }} pcs</td>
+			                            {% endif %}
+			                            <td>{{ stock.category.name }}</td>
+			                        </tr>
+			                	{% endfor %}
+			                </tbody>
+			            </table>
+			        </div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
